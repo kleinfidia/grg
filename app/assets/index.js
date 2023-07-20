@@ -1,0 +1,6 @@
+export {default as Lego} from './lego.jpg'
+export { default as cube_and_lego } from './cube_and_lego.jpg'
+export {default as Minato} from './minato.jpg'
+export {default as Ludo} from './ludo.jpg'
+export {default as Dice }from './dice.jpg'
+export {default as Fun } from'./fun.jpg'
