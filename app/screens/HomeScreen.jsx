@@ -8,18 +8,45 @@ import {
     ActivityIndicator
   } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import React,{useState}from 'react'
+import React,{useState, useEffect}from 'react'
 
 import { MaterialIcons, FontAwesome  } from '@expo/vector-icons';
 import { Minato } from '../assets';
+import { fetchFeeds } from '../sanity';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_FEEDS } from '../context/actions/feedsActions';
+import { Feeds } from '../components';
 
 const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState("");
-  const [isLoading, setisLoading] = useState(true)
+  const [isLoading, setisLoading] = useState(false);
+
+  const feeds = useSelector((state) => state.feeds)
+
+  const dispatch = useDispatch()
 
   const handleSearchTerm = (text) =>{
     setsearchTerm(text);
-  }
+  };
+
+  useEffect(() => {
+    setisLoading(true)
+    try {
+      fetchFeeds().then(res =>{
+        // console.log(res);
+        dispatch(SET_FEEDS(res));
+        console.log("Feeds from store: ",feeds?.feeds);
+        setInterval(() => {
+          setisLoading(false)
+        }, 2000);
+      })
+      
+    } catch (error) {
+      console.log(error)
+      // setisLoading(false)
+    }
+  }, [])
+  
 
 
   return (
@@ -41,7 +68,7 @@ const HomeScreen = () => {
               />
           </View > 
 
-          <TouchableOpacity className=" bg-white w-12 h-12 rounded-xl items-center justify-center">
+          <TouchableOpacity className=" bg-lime-600 w-12 h-12 rounded-xl items-center justify-center">
            <FontAwesome name="filter" size={24} color="#7f7f7f" />
           </TouchableOpacity>
 
@@ -50,8 +77,12 @@ const HomeScreen = () => {
       {/* search box ends */}
 
     {/* scroll area */}
-      <ScrollView className="flex-1 w-full  bg-red-500"> 
-        {isLoading?<View className=" flex-1 h-80 items-center justify-center"><ActivityIndicator size={"large"} color={"teal"}/></View> : <></>}
+      <ScrollView className=" bg-zinc-300 flex-1 w-full"> 
+        {isLoading?(<View className=" flex-1 h-80 items-center justify-center"><ActivityIndicator size={"large"} color={"teal"}/></View>
+        ) : (
+        <Feeds feeds={feeds.feeds}/>
+        ) }
+        
       </ScrollView>
 
 
