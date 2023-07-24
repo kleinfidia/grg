@@ -6,9 +6,10 @@ import {
     TouchableOpacity, 
     ScrollView, 
     ActivityIndicator
-  } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import React,{useState, useEffect}from 'react'
+  } from 'react-native';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
+import React,{useState, useEffect}from 'react';
 
 import { MaterialIcons, FontAwesome  } from '@expo/vector-icons';
 import { Minato } from '../assets';
@@ -21,12 +22,17 @@ const HomeScreen = () => {
   const [searchTerm, setsearchTerm] = useState("");
   const [isLoading, setisLoading] = useState(false);
 
-  const feeds = useSelector((state) => state.feeds)
+  const feeds = useSelector((state) => state.feeds );
 
-  const dispatch = useDispatch()
+  const [filtered, setfiltered] = useState(null);
+
+  const dispatch = useDispatch();
 
   const handleSearchTerm = (text) =>{
     setsearchTerm(text);
+      
+    setfiltered(    
+      feeds?.feeds.filter(item => item.title.includes(text)));
   };
 
   useEffect(() => {
@@ -35,17 +41,17 @@ const HomeScreen = () => {
       fetchFeeds().then(res =>{
         // console.log(res);
         dispatch(SET_FEEDS(res));
-        console.log("Feeds from store: ",feeds?.feeds);
+        console.log ("feeds from store: " ,feeds?.feeds)
         setInterval(() => {
           setisLoading(false)
         }, 2000);
-      })
+      });
       
     } catch (error) {
-      console.log(error)
+      console.log(error)  
       // setisLoading(false)
     }
-  }, [])
+  }, [dispatch])
   
 
 
@@ -80,7 +86,7 @@ const HomeScreen = () => {
       <ScrollView className=" bg-zinc-300 flex-1 w-full"> 
         {isLoading?(<View className=" flex-1 h-80 items-center justify-center"><ActivityIndicator size={"large"} color={"teal"}/></View>
         ) : (
-        <Feeds feeds={feeds.feeds}/>
+        <Feeds feedz= {filtered || filtered?.length > 0 ? filtered : feeds?.feeds}/>
         ) }
         
       </ScrollView>
