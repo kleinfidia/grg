@@ -1,8 +1,5 @@
-const initialstate = {
-    feeds: null,
-};
 
-const feedsReducers = (state = initialstate , action) => {
+const feedsReducers = (state = null, action) => {
         switch(action.type){
             case 'SET_FEEDS':
                 return {

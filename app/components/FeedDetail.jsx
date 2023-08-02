@@ -1,14 +1,21 @@
-import { View, Text, Dimensions, Image} from 'react-native'
-import React from 'react'
+import { View, Text, Dimensions, Image, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const FeedDetail = ({data}) => {
 
     const screenWidth = Math.round(Dimensions.get("window").width);
     const cardWidth = screenWidth -20 ;
-    // console.log(cardWidth);
+
+    const navigation = useNavigation();
+
+    const handleClick = () => {
+      navigation.navigate("ProductScreen", {_id : data?._id});
+    };
 
   return (
-    <View className = " p-4  m-2 rounded-xl flex items-center justify-center bg-white" 
+    <TouchableOpacity onPress={handleClick}
+          className = " p-4  m-2 rounded-xl flex items-center justify-center bg-white" 
           style={{width : cardWidth}}>
       <Image source={{uri: data?.mainImage?.asset?.url}} resizeMode='contain' className=" w-52 h-60"/>
 
@@ -21,12 +28,12 @@ const FeedDetail = ({data}) => {
           </Text>
         <View className=" flex-row items-center justify-between space-y-1 w-full">
         <Text className=" text-base font-semibold text-[#555]">
-           $ {data?.prize}
+           ${data?.price}
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
-}
+};
 
 export default FeedDetail;

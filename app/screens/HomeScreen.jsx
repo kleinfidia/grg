@@ -1,6 +1,5 @@
 import {
-    View,
-    Text,
+    View,  
     Image, 
     TextInput,
     TouchableOpacity, 
@@ -30,9 +29,8 @@ const HomeScreen = () => {
 
   const handleSearchTerm = (text) =>{
     setsearchTerm(text);
-      
-    setfiltered(    
-      feeds?.feeds.filter(item => item.title.includes(text)));
+    
+    setfiltered(feeds?.feeds.filter(item => item.title.includes(text)));
   };
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const HomeScreen = () => {
       fetchFeeds().then(res =>{
         // console.log(res);
         dispatch(SET_FEEDS(res));
-        console.log ("feeds from store: " ,feeds?.feeds)
+        console.log ("feed from store: " ,feeds?.feeds)
         setInterval(() => {
           setisLoading(false)
         }, 2000);
@@ -83,10 +81,10 @@ const HomeScreen = () => {
       {/* search box ends */}
 
     {/* scroll area */}
-      <ScrollView className=" bg-zinc-300 flex-1 w-full"> 
+      <ScrollView className=" bg-[#EBEAEF] flex-1 w-full"> 
         {isLoading?(<View className=" flex-1 h-80 items-center justify-center"><ActivityIndicator size={"large"} color={"teal"}/></View>
         ) : (
-        <Feeds feedz= {filtered || filtered?.length > 0 ? filtered : feeds?.feeds}/>
+        <Feeds feeds= {filtered || filtered?.length > 0 ? filtered : feeds?.feeds}/>
         ) }
         
       </ScrollView>
@@ -95,6 +93,6 @@ const HomeScreen = () => {
     {/* scroll area ends */}
     </SafeAreaView>
   )
-}
+};
 
-export default HomeScreen
+export default HomeScreen;

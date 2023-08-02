@@ -1,13 +1,13 @@
-import { View, Text, ActivityIndicator } from 'react-native'
-import React from 'react'
-import FeedDetail from './FeedDetail'
+import { View, Text, ActivityIndicator } from 'react-native';
+import React from 'react';
+import FeedDetail from './FeedDetail';
 
-const Feeds = ({feedz}) => {
+const Feeds = ({feeds}) => {
   return (
     <View className= " flex-row flex-wrap items-center justify-center">
-      {feedz?.length > 0 ? ( 
+      {feeds?.length > 0 ? ( 
       <>
-        {feedz?.map((item, i) => (
+        {feeds?.map((item, i) => (
           <FeedDetail key={i} data={item} />
         ))}
       </>
@@ -21,4 +21,4 @@ const Feeds = ({feedz}) => {
   )
 }
 
-export default Feeds
+export default Feeds;
