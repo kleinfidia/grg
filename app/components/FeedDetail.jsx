@@ -11,6 +11,7 @@ const FeedDetail = ({data}) => {
 
     const handleClick = () => {
       navigation.navigate("ProductScreen", {_id : data?._id});
+      console.log("log id",data)
     };
 
   return (
