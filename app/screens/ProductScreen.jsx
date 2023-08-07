@@ -9,19 +9,23 @@ import {
 } from 'react-native';
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { MaterialIcons, FontAwesome , Entypo, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { addtocart } from "../context/actions/cartActions";
 
 const ProductScreen = ({route}) => {
 
     const { _id } = route.params;
 
+    const cartItems = useSelector((state) => state.cartItems);
     const feeds = useSelector((state) => state.feeds );
     const [data, setData] = useState(null);
     const [isLoading, setisLoading] = useState(false);
+
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const [qty, setQty] = useState(1)
 
@@ -41,11 +45,15 @@ const ProductScreen = ({route}) => {
     const handleQty =(action) =>{
       const newQty = qty + action
       setQty(newQty >= 1 ? newQty : 1)
+    };
 
-    }
+    const handlePressCart = () => {
+      dispatch(addtocart({ data: data, qty: qty }));
+    };
+  
 
   return (
-    <View className = " flex-1 items-start justify-start bg-[#EBEAEF] space-y-4">
+    <View className = " flex-1 items-start justify-start bg-[#EBEAEF] space-y-4 ">
       { isLoading ? (
       <View className=" w-full h-full flex-1 items-center justify-center">
         <ActivityIndicator size={"large"} color={"teal"}/>
@@ -58,7 +66,7 @@ const ProductScreen = ({route}) => {
               <TouchableOpacity onPress={ () => navigation.goBack()}>
                 <Entypo name='chevron-left' size={32} color={"#555"}/>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}>
                 <MaterialIcons name='shopping-cart' size={32} color={"#555"}/>
               </TouchableOpacity>
             </View>
@@ -113,11 +121,30 @@ const ProductScreen = ({route}) => {
                     <Text className="text-xl font-bold text-[#555]">+</Text>
                     </TouchableOpacity>
                   </View>
-                    <TouchableOpacity className="bg-black px-4 py-2 rounded-xl">
+
+
+                  {cartItems?.cart?.filter((item) => item?.data?._id === data?._id)
+                ?.length > 0 ? (
+                <TouchableOpacity className="bg-black px-4 py-2 rounded-xl">
+                  <Text className="text-base font-semibold text-gray-50">
+                    Added
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={handlePressCart}
+                  className="bg-black px-4 py-2 rounded-xl"
+                >
+                  <Text className="text-base font-semibold text-gray-50">
+                    Add to Cart
+                  </Text>
+                </TouchableOpacity>
+              )}
+                    {/* <TouchableOpacity className="bg-black px-4 py-2 rounded-xl">
                        <Text className="text-base font-semibold text-gray-50">
                         cart
                        </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
           </View>
