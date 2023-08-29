@@ -4,7 +4,8 @@ import {
   ActivityIndicator, 
   SafeAreaView, 
   TouchableOpacity, 
-  Dimensions, 
+  Dimensions,
+  ScrollView, 
   Image 
 } from 'react-native';
 
@@ -60,7 +61,9 @@ const ProductScreen = ({route}) => {
       </View> )
       :(
        <>
-          <SafeAreaView className=" w-full py-2">
+          <SafeAreaView className=" w-full h-full py-2]">
+          <ScrollView className=" bg-[#EBEAEF] flex-1 w-full">
+          
             {/* top section */}
             <View className=" flex-row items-center justify-between px-4 py-2 my-4 w-full">
               <TouchableOpacity onPress={ () => navigation.goBack()}>
@@ -90,7 +93,7 @@ const ProductScreen = ({route}) => {
               ))}
 
             </View>
-          </SafeAreaView>
+          
 
           <View className=" w-full h-full flex-1 bg-white rounded-t-[36px] py-6 px-12 space-y-4">
                 <View className="w-full items-center justify-between flex-row">
@@ -108,7 +111,7 @@ const ProductScreen = ({route}) => {
                 </View>
 
                 {/* bottom  */}
-                <View className=" w-full flex-row items-center justify-between">
+                <View className=" w-full flex-row items-center justify-between mb-40">
                   <Text className=" text-xl font-bold text-black">
                        ${data?.price}
                   </Text>
@@ -146,8 +149,11 @@ const ProductScreen = ({route}) => {
                        </Text>
                     </TouchableOpacity> */}
 
-                </View>
-          </View>
+                  </View>
+                  </View>
+           </ScrollView>       
+          
+          </SafeAreaView>
        </>
        )}
     </View>

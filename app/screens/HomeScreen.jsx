@@ -72,7 +72,7 @@ const HomeScreen = () => {
               />
           </View > 
 
-          <TouchableOpacity className=" bg-lime-600 w-12 h-12 rounded-xl items-center justify-center">
+          <TouchableOpacity className=" bg-lime-300 w-12 h-12 rounded-xl items-center justify-center">
            <FontAwesome name="filter" size={24} color="#7f7f7f" />
           </TouchableOpacity>
 

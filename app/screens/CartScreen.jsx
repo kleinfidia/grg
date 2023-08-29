@@ -163,7 +163,7 @@ export const CartItemCard = ( {item, qty}) =>{
     <View className=" flex items-center space-y-2 ml-3">
       <View className =" flex items-start justify-center ">
         <Text className=" text-lg font-semibold text-[#555]">{item?.title}</Text>
-        <Text className=" text-sm font-semibold text-[#777]">{item?.shortDescription}</Text>
+        <Text className=" text-sm font-semibold text-[#777]">{item?.description}</Text>
           {/* <View className=" flex-row items-center justify-center space-x-3">
           <Text>${item?.price * qty}</Text>
           <Text>(Qty :{ qty})</Text>

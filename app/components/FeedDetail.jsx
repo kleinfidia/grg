@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 const FeedDetail = ({data}) => {
 
     const screenWidth = Math.round(Dimensions.get("window").width);
-    const cardWidth = screenWidth -20 ;
+    const cardWidth = screenWidth  -20 ;
 
     const navigation = useNavigation();
 
@@ -18,7 +18,7 @@ const FeedDetail = ({data}) => {
     <TouchableOpacity onPress={handleClick}
           className = " p-4  m-2 rounded-xl flex items-center justify-center bg-white" 
           style={{width : cardWidth}}>
-      <Image source={{uri: data?.mainImage?.asset?.url}} resizeMode='contain' className=" w-52 h-60"/>
+      <Image source={{uri: data?.mainImage?.asset?.url}} resizeMode='contain' className=" w-36 h-60"/>
 
       <View className="flex items-start justify-start space-y-1 w-full">
           <Text className=" text-xl font-semibold text-[#555]">
